@@ -24,7 +24,7 @@ while True:
 
     keuze = input("Wat is je keuze?: ")
 
-
+    #deze code is zelf geschreven na het zien van de AI code in Main.py en daarna de if statements geexpirimenteert
     if keuze == "Controller" or keuze == "1":
       subprocess.Popen(
         [sys.executable, "Smart_App_Controller_Smart_App_2.py"],
