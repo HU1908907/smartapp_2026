@@ -36,7 +36,7 @@ def weerbericht():
 
     print("=====================")
     print("1. Zelf invullen")
-    print("1. Huidige weer in Utrecht")
+    print("2. Huidige weer in Utrecht")
     print("3. Stoppen")
     print("=====================")
 
@@ -107,6 +107,6 @@ def weerbericht():
         elif user_input == "3" or user_input == "Stoppen" or user_input == "stoppen":
             break
         else:
-            print("Kies een van de 2 opties hierboven.")
+            print("Kies een van de 3 opties hierboven.")
 
 weerbericht()

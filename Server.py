@@ -17,7 +17,8 @@ print()
 print("=====================")
 print("1. Controller")
 print("2. Weer")
-print("3. Stoppen")
+print("3. Blackjack")
+print("4. Stoppen")
 print("=====================")
 
 while True:
@@ -40,7 +41,14 @@ while True:
         creationflags=subprocess.CREATE_NEW_CONSOLE
         )
 
-    elif keuze == "Stoppen" or keuze == "3":
+    elif keuze == "Blackjack" or keuze == "3":
+        subprocess.Popen(
+        [sys.executable, "blackjack.py"],
+        cwd=base_dir,
+        creationflags=subprocess.CREATE_NEW_CONSOLE
+        )
+
+    elif keuze == "Stoppen" or keuze == "4":
         break
 
     else:
