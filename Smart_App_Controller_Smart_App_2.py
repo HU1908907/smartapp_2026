@@ -1,3 +1,17 @@
+class fg:
+    BLACK   = '\033[30m'
+    RED     = '\033[31m'
+    GREEN   = '\033[32m'
+    YELLOW  = '\033[33m'
+    BLUE    = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN    = '\033[36m'
+    WHITE   = '\033[37m'
+    RESET   = '\033[39m'
+
+
+
+
 def aantal_dagen(inputFile):
 
     #Leest het invoer van het bestand en de "with" zorgt ervoor dat het bestand ook weer sluit
@@ -192,8 +206,7 @@ def smart_app_controller():
     invoer_bestand = "SmartApp2.txt"
     uitvoer_bestand = "SmartApp2Out.txt"
 
-    print(
-        """
+    print( fg.BLUE + """
 ╭─╴╭─╮╭╮╷╶┬╴╭─╮╭─╮╷  ╷  ╭─╴╭─╮   ╭┬╮╭─╴╭╮╷╷ ╷
 │  │ ││╰┤ │ ├┬╯│ ││  │  ├╴ ├┬╯   │││├╴ │╰┤│ │
 ╰─╴╰─╯╵ ╵ ╵ ╵╰╴╰─╯╰─╴╰─╴╰─╴╵╰╴   ╵ ╵╰─╴╵ ╵╰─╯

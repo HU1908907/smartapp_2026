@@ -1,5 +1,18 @@
 import random
 
+
+class fg:
+    BLACK   = '\033[30m'
+    RED     = '\033[31m'
+    GREEN   = '\033[32m'
+    YELLOW  = '\033[33m'
+    BLUE    = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN    = '\033[36m'
+    WHITE   = '\033[37m'
+    RESET   = '\033[39m'
+
+
 #Het hele deck in een tuple gooien
 kaart_catogorie = ['♥', '♠', '♣', '♦']
 kaart_nummers = ['Aas', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Boer', 'Vrouw', 'Koning']
@@ -25,7 +38,7 @@ random.shuffle(deck)
 player_card = [deck.pop(), deck.pop()]
 dealer_card = [deck.pop(), deck.pop()]
 
-print("""
+print(fg.BLUE + """
 
 ╭╮ ╷  ╭─╮╭─╴╷╭     ╭╮╭─╮╭─╴╷╭ 
 ├┴╮│  ├─┤│  ├┴╮     │├─┤│  ├┴╮
