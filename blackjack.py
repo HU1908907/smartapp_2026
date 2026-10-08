@@ -34,9 +34,85 @@ def leesbaar_maken(card):
 def kaart_printen(kaarten):
     return ",".join(leesbaar_maken(card) for card in kaarten)
 
-random.shuffle(deck)
-player_card = [deck.pop(), deck.pop()]
-dealer_card = [deck.pop(), deck.pop()]
+#ik had AI gevraagd hoe ik dit in godsnaam moest terug loopen want dat kon ik gewoon niet
+def maak_deck():
+    return [(nummer, soort) for soort in kaart_catogorie for nummer in kaart_nummers]
+
+#ik had AI gevraagd hoe ik dit in godsnaam moest terug loopen want dat kon ik gewoon niet
+def start_nieuw_potje():
+    deck = maak_deck()
+
+    #Vanaf hier had ik GEEN AI gebruikt.
+    random.shuffle(deck)
+
+    player_card = [deck.pop(), deck.pop()]
+    dealer_card = [deck.pop(), deck.pop()]
+
+    return deck, player_card, dealer_card
+
+def speel_blackjack():
+    deck, player_card, dealer_card = start_nieuw_potje()
+
+    while True:
+        player_score = sum(kaart_waard(player_card) for player_card in player_card)
+        dealer_score = sum(kaart_waard(dealer_card) for dealer_card in dealer_card)
+
+        print("U heeft deze kaarten nu: ", kaart_printen(player_card))
+        print("Uw score is", player_score)
+        print("De dealer heeft deze kaart en 1 dichte kaart: ", leesbaar_maken(dealer_card[0]), ", [Dichte kaart]")
+
+        speelbeurt = input("Wat wilt u doen? ['hit' om nog een kaart te krijgen, 'stand' om deze selectie te behouden]: ").lower()
+        print("==================")
+
+        if speelbeurt == 'stand':
+            break
+
+        elif speelbeurt == "hit":
+            nieuwe_kaart = deck.pop()
+            player_card.append(nieuwe_kaart)
+
+            print("U trekt een", leesbaar_maken(nieuwe_kaart))
+
+            # Score opnieuw berekenen na het trekken van de kaart om te kijken of je 21 of hoger hebt
+            player_score = sum(kaart_waard(card) for card in player_card)
+
+            # Meteen stoppen als de speler boven 21 komt
+            if player_score > 21:
+                print("Dealer wint. De speler heeft meer dan 21 punten.")
+                break
+
+        else:
+            print("Geen valide keuze, kies hit of stand.")
+
+
+
+    if player_score <= 21:
+        dealer_score = sum(kaart_waard(dealer_card) for dealer_card in dealer_card)
+        print("De dichte kaart van de dealer is", leesbaar_maken(dealer_card[1]),)
+        print("De dealer heeft een", kaart_printen(dealer_card))
+        print("De dealer heeft een score van", dealer_score)
+
+        while dealer_score < 17:
+            nieuwe_kaart = deck.pop()
+            print("De dealer trekt een:", leesbaar_maken(nieuwe_kaart))
+            dealer_card.append(nieuwe_kaart)
+            dealer_score += kaart_waard(nieuwe_kaart)
+            print("De dealer heeft een score van", dealer_score)
+
+        if dealer_score > 21:
+            print("Player wint (Dealer had meer dan 21 punten)")
+        elif player_score > dealer_score:
+            print("Player wint. (Dealer had minder punten dan player)")
+        elif dealer_score > player_score:
+            print("Dealer wint (Dealer Has Higher Score than Player)")
+        else:
+            print("Player en Dealer hebben evenveel punten.")
+
+    print("Kaarten - Player:", kaart_printen(player_card), "Score:", player_score)
+    print("Kaarten - Dealer:", kaart_printen(dealer_card), "Score:", dealer_score)
+
+
+
 
 print(fg.BLUE + """
 
@@ -57,63 +133,8 @@ while True:
     user_input = input("Wat wilt u doen?: ")
 
     if user_input == "1":
-        while True:
-            player_score = sum(kaart_waard(player_card) for player_card in player_card)
-            dealer_score = sum(kaart_waard(dealer_card) for dealer_card in dealer_card)
+        speel_blackjack()
 
-            print("U heeft deze kaarten nu: ", kaart_printen(player_card))
-            print("Uw score is", player_score)
-            print("De dealer heeft deze kaart en 1 dichte kaart: ", leesbaar_maken(dealer_card[0]), ", [Dichte kaart]")
-
-            speelbeurt = input("Wat wilt u doen? ['hit' om nog een kaart te krijgen, 'stand' om deze selectie te behouden]: ").lower()
-            print("==================")
-
-            if speelbeurt == 'stand':
-                break
-
-            elif speelbeurt == "hit":
-                nieuwe_kaart = deck.pop()
-                player_card.append(nieuwe_kaart)
-
-                print("U trekt een", leesbaar_maken(nieuwe_kaart))
-
-                # Score opnieuw berekenen na het trekken van de kaart om te kijken of je 21 of hoger hebt
-                player_score = sum(kaart_waard(card) for card in player_card)
-
-                # Meteen stoppen als de speler boven 21 komt
-                if player_score > 21:
-                    print("Dealer wint. De speler heeft meer dan 21 punten.")
-                    break
-
-            else:
-                print("Geen valide keuze, kies hit of stand.")
-
-
-
-        if player_score <= 21:
-            dealer_score = sum(kaart_waard(dealer_card) for dealer_card in dealer_card)
-            print("De dichte kaart van de dealer is", leesbaar_maken(dealer_card[1]),)
-            print("De dealer heeft een", kaart_printen(dealer_card))
-            print("De dealer heeft een score van", dealer_score)
-
-            while dealer_score < 17:
-                nieuwe_kaart = deck.pop()
-                print("De dealer trekt een:", leesbaar_maken(nieuwe_kaart))
-                dealer_card.append(nieuwe_kaart)
-                dealer_score += kaart_waard(nieuwe_kaart)
-                print("De dealer heeft een score van", dealer_score)
-
-            if dealer_score > 21:
-                print("Player wint (Dealer had meer dan 21 punten)")
-            elif player_score > dealer_score:
-                print("Player wint. (Dealer had minder punten dan player)")
-            elif dealer_score > player_score:
-                print("Dealer wint (Dealer Has Higher Score than Player)")
-            else:
-                print("Player en Dealer hebben evenveel punten.")
-
-        print("Kaarten - Player:", kaart_printen(player_card), "Score:", player_score)
-        print("Kaarten - Dealer:", kaart_printen(dealer_card), "Score:", dealer_score)
 
     elif user_input == "2":
         print("""
